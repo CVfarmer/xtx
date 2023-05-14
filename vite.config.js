@@ -16,7 +16,10 @@ export default defineConfig({
     resolvers: [ElementPlusResolver()],
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        //1.通知element采用sass样式配色系统
+        ElementPlusResolver({importStyle:"sass"})
+      ],
     }),
   ],
   resolve: {
@@ -24,5 +27,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
     
+  },
+  css: {
+    preprocessorOptions:{
+      scss:{
+        additionalData:`
+        @use "@/styles/element/index.scss" as *;
+        `
+      },
+    }
   }
 })
