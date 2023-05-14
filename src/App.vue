@@ -6,9 +6,19 @@
 
 <template>
 <!-- 一级路由出口组件 -->
-<RouterView/>
+<div>
+   <RouterView/>
+   
+   <div class="test">
+   test 123
+   </div>
+</div>
+
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.test{
+   color: $priceColor;
+}
 
 </style>

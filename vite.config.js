@@ -31,9 +31,12 @@ export default defineConfig({
   css: {
     preprocessorOptions:{
       scss:{
+         //自动导入样式文件,组件中不需要写import了
         additionalData:`
         @use "@/styles/element/index.scss" as *;
+        @use "@/styles/var.scss" as *;           
         `
+    
       },
     }
   }
