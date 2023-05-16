@@ -14,10 +14,6 @@
             <i class="iconfont icon-sousuo"></i>
             <input type="text" placeholder="搜一搜">
           </div>
-
-
-
-
         </div>
 
     </header>
