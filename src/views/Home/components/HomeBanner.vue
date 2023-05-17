@@ -11,11 +11,14 @@
 <script setup>
 import {getBannerAPI} from '@/apis/home'
 import { onMounted,ref } from 'vue';
+
+
 const bannerList = ref([])
+
 const getBanner = async ()=>{
   const res = await getBannerAPI()
   console.log(res);
-  bannerList.value = res.result
+  bannerList.value = res.result   //请求回来的数据插入数组
 
 }
 
