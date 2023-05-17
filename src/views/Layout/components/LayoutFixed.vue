@@ -25,6 +25,7 @@
   <script setup >
   import { useScroll } from '@vueuse/core'   //vueUse插件
   const { y } = useScroll(window)
+  
   //使用pinia里面的数据
   import { useCategoryStore } from '@/stores/category';
   const categoryStore = useCategoryStore()

@@ -2,6 +2,7 @@
 <div>
   <LayoutNav/>
   <LayoutHeader/>
+  <router-view></router-view>
   <LayoutFooter/>
   <LaytoutFixed/>
 </div>

@@ -1,12 +1,25 @@
 <template>
-  <div>home </div>
- 
+ <div>
+  <div class="container">
+    <HomeCategorys />
+    <HomeBanner />
+  </div>
+  <HomeNew />
+  <HomeHot />
+  <HomeProduct/>
+ </div>
 </template>
 
-<script>
-export default {
+<script setup>
+import HomeCategorys from './components/HomeCategorys.vue'
+import HomeBanner from './components/HomeBanner.vue'
+import HomeNew from './components/HomeNew.vue'
+import HomeHot from './components/HomeHot.vue'
+import HomeProduct from './components/HomeProduct.vue'
 
-}
+
+
+// import HomeBanner from '@/views/Home/components/HomeBanner.vue'
 </script>
 
 <style>
