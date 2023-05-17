@@ -17,7 +17,7 @@ const bannerList = ref([])
 
 const getBanner = async ()=>{
   const res = await getBannerAPI()
-  console.log(res);
+  // console.log(res);
   bannerList.value = res.result   //请求回来的数据插入数组
 
 }

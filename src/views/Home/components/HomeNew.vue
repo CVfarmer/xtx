@@ -11,6 +11,8 @@
   </ul>
 </HomePanel>
 
+
+
   <!-- 下面是插槽主体内容模版
   <ul class="goods-list">
     <li v-for="item in newList" :key="item.id">
@@ -33,6 +35,7 @@ import {onMounted, ref} from 'vue'
 const newList = ref([])
 const getNewList = async() => {
   const res =  await findNewAPI()
+  console.log(res);
   newList.value = res.result
 }
 onMounted(()=> getNewList())
