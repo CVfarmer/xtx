@@ -21,7 +21,7 @@ import { ref,onMounted } from 'vue'
 const hotList = ref([])
 const getHotList = async () =>{
   const res = await findHotAPI()
-  console.log(res);
+  // console.log(res);
   hotList.value = res.result
 
 }
@@ -30,7 +30,7 @@ onMounted(()=> getHotList())
 
 </script>
 
-<style>
+<style scoped>
 .alt{
   color: rgb(205, 202, 202);
   font-size: 14px;
