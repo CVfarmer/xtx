@@ -6,3 +6,11 @@ export function getBannerAPI(){
         url:'/home/banner'
     })
 }
+
+// * @description : 新鲜好物
+
+export const findNewAPI = () => {
+    return httpInstance({
+        url:'/home/new'
+    })
+}
