@@ -7,26 +7,84 @@
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>{{ categoryDate.name }}</el-breadcrumb-item>
         </el-breadcrumb>
+    
+   
       </div>
+    <!-- 轮播图 -->
+  
+    <div class="home-banner">
+        <el-carousel height="500px">
+          <el-carousel-item v-for="item in bannerList" :key="item.id">
+            <img :src="item.imgUrl" alt="">
+          </el-carousel-item>
+        </el-carousel>
+    </div>
+    <div class="sub-list">
+      <h3>全部分类</h3>
+      <ul>
+        <li v-for="i in categoryDate.children" :key="i.id">
+          <RouterLink to="/">
+            <img :src="i.picture" />
+            <p>{{ i.name }}</p>
+          </RouterLink>
+        </li>
+      </ul>
+    </div>
+    <div class="ref-goods" v-for="item in categoryDate.children" :key="item.id">
+      <div class="head">
+        <h3>- {{ item.name }}-</h3>
+      </div>
+      <div class="body">
+        <GoodsItem v-for="good in item.goods" :goods="good" :key="good.id" />
+      </div>
+    </div>  
+
     </div>
   </div>
+  
 </template>
 
 <script setup>
 import {getCategoryAPI} from '@/apis/category'
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'  //在路由组件内部获取路由参数
+import GoodsItem from '../Home/components/GoodsItem.vue'
+
+import {  onMounted, ref} from 'vue'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router'  //在路由组件内部获取路由参数
+
+
 
 const categoryDate = ref([])
 const route = useRoute()      //获取路由实例，通过route就能拿到路由参数
-const getCategory = async()=>{
-  const res = await getCategoryAPI(route.params.id)
+const getCategory = async(id = route.params.id)=>{  //若onBeforeRouteUpdate不传参，则使用默认参数id = route.params.id
+  const res = await getCategoryAPI(id)
   categoryDate.value = res.result
  
+ 
 }
-
 onMounted(()=> getCategory())
+// 目标:路由参数变化的时候 可以把分类数据接口重新发送
+onBeforeRouteUpdate((to)=>{      //且可以解决路由缓存问题
+  // console.log('aa');
+  getCategory(to.params.id)
+})
 
+//获取数据
+import {getBannerAPI} from '@/apis/home'
+const bannerList = ref([])
+
+const getBanner = async ()=>{
+  const res = await getBannerAPI({
+    distributionSite : '2'
+  })
+  // console.log(res);
+  bannerList.value = res.result   //请求回来的数据插入数组
+
+}
+onMounted(()=>getBanner())
+// onMounted(()=>{
+//   getBanner(),
+//   getCategory()
+// })
 </script>
 
 <style lang="scss">
@@ -107,4 +165,19 @@ onMounted(()=> getCategory())
     padding: 25px 0;
   }
 }
+
+.home-banner  {
+  width: 1240px;
+  height: 500px;
+  margin: 0 auto;
+
+
+  img {
+    width: 100%;
+    height: 500px;
+  }
+}
+
+
+
 </style>

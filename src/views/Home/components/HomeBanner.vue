@@ -25,7 +25,7 @@ const getBanner = async ()=>{
 onMounted(()=> getBanner( ))
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home-banner {
   width: 1240px;
   height: 500px;
