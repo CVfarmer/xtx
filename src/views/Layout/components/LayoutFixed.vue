@@ -23,6 +23,7 @@
   
 
   <script setup >
+  //吸顶导航组件
   import { useScroll } from '@vueuse/core'   //vueUse插件
   const { y } = useScroll(window)
   

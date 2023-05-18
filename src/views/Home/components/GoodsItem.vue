@@ -8,6 +8,8 @@
 </template>
 
 <script setup>
+//商品列表组件
+
 defineProps({
   goods: {
     tppe: Object,
