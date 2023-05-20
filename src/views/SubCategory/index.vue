@@ -4,9 +4,9 @@
     <div class="bread-container">
       <el-breadcrumb separator=">">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/' }">居家
+        <el-breadcrumb-item :to="{ path: `/category/${categoryData.parentId}` }">{{ categoryData.parentName }}
         </el-breadcrumb-item>
-        <el-breadcrumb-item>居家生活用品</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="sub-container">
@@ -24,6 +24,20 @@
 
 <script setup>
 //二级分类列表
+//获取面板屑导航数据
+
+import { getCategoryFilterAPI } from '@/apis/category';
+import {useRoute} from 'vue-router'
+import {onMounted, ref} from 'vue'
+
+const route = useRoute()
+const categoryData = ref([])
+const getcategoryData = async ()=>{
+const res = await getCategoryFilterAPI(route.params.id)   //获取路由参数
+categoryData.value = res.result
+}
+onMounted(()=>getcategoryData())
+
 </script>
 
 <style lang="scss" scoped>
