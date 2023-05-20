@@ -51,7 +51,7 @@ const reqData = ref({
 })
 const getGoodList = async () =>{
  const res = await getSubCategoryAPI(reqData.value)
- console.log(res);
+//  console.log(res);
  goodList.value = res.result.items
 }
 onMounted(()=>getGoodList() )
@@ -59,7 +59,7 @@ onMounted(()=>getGoodList() )
 
 //tab切换回调
 const tabChange = ()=>{
-  console.log('tab切换',reqData.value.sortField);
+  // console.log('tab切换',reqData.value.sortField);
   reqData.value.page = 1
   getGoodList()
 }
@@ -68,7 +68,6 @@ const tabChange = ()=>{
 //列表无限加载
 const disabled = ref(false)
 const load = async()=>{
-  console.log(123);
   //获取下一页的数据
   reqData.value.page++    //页数加一
   const res = await getSubCategoryAPI(reqData.value)        //获取新一页的数据

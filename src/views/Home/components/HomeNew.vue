@@ -2,7 +2,8 @@
  <HomePanel title="新鲜好物" subTitle="新鲜出炉 品质靠谱">
   <ul class="goods-list">
     <li v-for="item in newList" :key="item.id">
-      <RouterLink to="/">
+      <!-- 跳转到各个商品的详情页 -->
+      <RouterLink :to="`/detail/${item.id}`">
         <img :src="item.picture" alt="" />
         <p class="name">{{ item.name }}</p>
         <p class="price">&yen;{{ item.price }}</p>
