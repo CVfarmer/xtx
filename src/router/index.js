@@ -29,7 +29,7 @@ const router = createRouter({
         component:SubCategory
       },
       {
-        path:'detail/:id',
+        path:'detail/:id',   //详情页
         component:Detail
       },
 
