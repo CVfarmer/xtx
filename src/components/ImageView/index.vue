@@ -16,11 +16,11 @@
     <!-- 放大镜大图 -->
     <div class="large" :style="[
       {
-        backgroundImage: `url(${imageList[0]})`,
-        backgroundPositionX: `0px`,
-        backgroundPositionY: `0px`,
+        backgroundImage: `url(${imageList[activeIndex]})`,
+        backgroundPositionX: `${positionX}px`,
+        backgroundPositionY: `${positionY}px`,
       },
-    ]" v-show="false"></div>
+    ]" v-show="!isOutside"></div>
   </div>
 </template>
 
@@ -49,12 +49,17 @@ const enterHandler = (i)=>{
 const target = ref(null)
 const { elementX,elementY,isOutside } = useMouseInElement(target)
 
+
 //3.控制滑块跟随鼠标移动（监听elementX/Y变化，一旦变化 重新设置left/top）
 const left = ref(0)
 const top = ref(0)
 
+const positionX = ref(0)
+const positionY = ref(0)
+
 watch([elementX,elementY,isOutside],()=>{
-  console.log();
+if(isOutside.value) return
+
   //有效距离内控制滑块距离
   //横向
   if(elementX.value > 100 && elementX.value < 300){
@@ -72,7 +77,11 @@ watch([elementX,elementY,isOutside],()=>{
   if(elementY.value < 100){top.value = 0}
   if(elementY.value < 100){top.value = 0}
 
-  
+  //4.展示放大后的图片
+  positionX.value = -left.value * 2
+  positionY.value = -top.value * 2
+
+
 })
 </script>
 
