@@ -27,7 +27,7 @@
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImageView :image-list="goods.mainPictures"/>
+              <XtxImageView :image-list="goods.mainPictures"/>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -128,8 +128,10 @@ import DetailHot from './components/DetailHot.vue'
 import {getDetail} from '@/apis/deyail'
 import { onMounted, ref } from 'vue'
 import {useRoute} from 'vue-router'
-import ImageView from '@/components/ImageView/index.vue'
-import XtxSku from '@/components/XtxSku/index.vue'
+
+//下面两个组件是全局注册的，所以不用引入了
+/* import ImageView from '@/components/ImageView/index.vue'
+import XtxSku from '@/components/XtxSku/index.vue' */
 
 const goods = ref({})
 const route = useRoute()
