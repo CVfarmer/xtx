@@ -2,8 +2,10 @@
  <nav class="app-topnav">
     <div class="container">
         <ul>
-            <template v-if="false">
-             <li><a href="javascript:;"><i class=" iconfont icon-denglu"></i>周杰伦</a></li>
+            <!-- 多模板渲染 区分登录状态和非登录状态 -->
+            <!-- 思路：登录时显示第一块，非登录时电视第二块  是否有token -->
+            <template v-if="useStore.useInfo.token">
+             <li><a href="javascript:;"><i class=" iconfont icon-denglu"></i>{{ useStore.useInfo.account }}</a></li>
              <li>
             <el-popconfirm  title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
               <template #reference>
@@ -24,7 +26,9 @@
  </nav>
 </template>
 
-<script>
+<script setup>
+import { useUserStore } from '@/stores/use'
+const useStore = useUserStore()
 
 </script>
 
