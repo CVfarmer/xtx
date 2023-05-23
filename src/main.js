@@ -20,4 +20,3 @@ app.use(lazyPlugin)  //注册自定义懒加载插件
 app.use(componentsPlugin)
 
 app.mount('#app')
-

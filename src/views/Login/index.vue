@@ -70,13 +70,14 @@
 
 //表单验证（账号名+密码）
 import {ref} from 'vue'
-import {loginAPI } from '@/apis/use'
 // 如果使用 unplugin-element-plus 并且只使用组件 API，你需要手动导入样式。
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 //useRouter是调方法，useRoute获取参数
 import {useRouter} from 'vue-router'
-
+//引入pinia里面的用户数据
+import {useUserStore} from '@/stores/use'
+const userStore = useUserStore()
 
 
 //1.准备表单对象
@@ -126,8 +127,7 @@ formRef.value.validate(async (valid)=>{
   //以valid作为判断条件，通过才执行登录逻辑
   if(valid){
     //登录逻辑
-    const res = await loginAPI({ account,password })
-    console.log(res);
+    await userStore.getUseInfo({account,password})
     //1.提示用户
     ElMessage({type:'succcess',message:'登录成功'})  //登录成功弹窗
     //2.跳转首页
