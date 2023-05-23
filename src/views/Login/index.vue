@@ -20,7 +20,7 @@
         <div class="account-box">
           <div class="form">
             <!-- 1.:model="form" :rules="rules" 绑定规则对象 -->
-            <el-form :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
+            <el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
               <!-- 2.通过prop指定校验规则 -->
               <el-form-item prop="account" label="账户">
                 <!-- 3.把表单对象进行双向绑定 -->
@@ -34,7 +34,7 @@
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
             </el-form>
           </div>
         </div>
@@ -60,10 +60,24 @@
 
 <script setup>
 //简单校验只需要通过配置即可，特殊校验需要自定义校验规则
-//这是基于element的校验规则
+//这是基于element的校验规则，遵从element的语法
+
+/* 步骤：
+1.用户名和密码 只需要通过简单的配置(看文档的方式  复杂功能通过多个不同组件拆解)
+2.同意协议：自定义规则 validator:(rule,value,callback)=>{}
+3.统一校验 通过调用form实例的方法 validate -> true */
+
 
 //表单验证（账号名+密码）
 import {ref} from 'vue'
+import {loginAPI } from '@/apis/use'
+// 如果使用 unplugin-element-plus 并且只使用组件 API，你需要手动导入样式。
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+//useRouter是调方法，useRoute获取参数
+import {useRouter} from 'vue-router'
+
+
 
 //1.准备表单对象
 const form = ref({
@@ -98,6 +112,29 @@ const rules = {
  ]
 }
 
+
+//3.获取form实例做统一校验 （避免点击登录跳过其他校验）
+const formRef = ref (null)
+const router = useRouter()
+const doLogin = () => {
+const { account,password } = form.value
+  //调用实例方法
+formRef.value.validate(async (valid)=>{
+  // valid:所有表单都通过校验 才为true
+  // console.log(valid);
+
+  //以valid作为判断条件，通过才执行登录逻辑
+  if(valid){
+    //登录逻辑
+    const res = await loginAPI({ account,password })
+    console.log(res);
+    //1.提示用户
+    ElMessage({type:'succcess',message:'登录成功'})  //登录成功弹窗
+    //2.跳转首页
+    router.replace({path: '/'})
+  }
+})
+}
 </script>
 
 <style scoped lang='scss'>
