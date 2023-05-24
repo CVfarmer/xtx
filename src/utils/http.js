@@ -24,6 +24,12 @@ httpInstance.interceptors.request.use(config=>{
     return config
 },e => Promise.reject(e))
 
+
+
+
+
+
+
 //axios响应式拦截器
 httpInstance.interceptors.response.use(res => res.data,e => {
     const userStore = useUserStore()   //通过这个实例对象，能拿到token数据
@@ -33,10 +39,10 @@ httpInstance.interceptors.response.use(res => res.data,e => {
         message:e.response.data.message
     })
     //401token失效处理
-    //1.清除本地用户数据
-    //2.跳转到登录页
     if(e.response.status === 401){
+            //1.清除本地用户数据
         userStore.clearUserInfo()
+          //2.跳转到登录页
         router.push('/Login')
     }
 

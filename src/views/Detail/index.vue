@@ -78,10 +78,10 @@
               <!-- sku组件 -->
               <XtxSku :goods="goods" @change="skuChange"/>
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count"  @change="countChange" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="addCart">
                   加入购物车
                 </el-button>
               </div>
@@ -128,6 +128,8 @@ import DetailHot from './components/DetailHot.vue'
 import {getDetail} from '@/apis/deyail'
 import { onMounted, ref } from 'vue'
 import {useRoute} from 'vue-router'
+import { ElMessage } from 'element-plus'
+import { useCartStore } from '@/stores/carStore'
 
 //下面两个组件是全局注册的，所以不用引入了
 /* import ImageView from '@/components/ImageView/index.vue'
@@ -142,8 +144,37 @@ const getGoods = async () => {
 onMounted(() => getGoods())
 
 //sku规格被操作时
+let skuObj = {}
 const skuChange = (sku) => {
   console.log(sku);
+  skuObj = sku
+}
+
+//count
+const count = ref(1)
+const countChange = (count)=>{
+  console.log(count);
+} 
+//添加购物车
+const carStore = useCartStore()
+
+const addCart = ()=>{
+  if(skuObj.skuId){   
+  //规格选全了   触发action
+  carStore.addCart({ 
+    id:goods.value.id,                       //商品ID
+    name:goods.value.name,                   //商品名称
+    picture:goods.value.mainPictures[0],     //图片
+    price:goods.value.price,                 //最新价格
+    count:count.value,                       //商品数量
+    skuId:skuObj.skuId,                      //skuId
+    attrsText:skuObj.specsText,              //商品规格文本
+    Selected:true                            //商品是否选中       
+  })
+  }else{
+  //规格为未选全 提示用户
+  ElMessage.warning('请选择规格')
+  }
 }
 </script>
 
