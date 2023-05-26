@@ -9,7 +9,7 @@ export const useUserStore = defineStore('use',()=>{
     const getUseInfo = async ({account,password})=>{
         const res = await loginAPI({account,password})
         useInfo.value = res.result
-        console.log(res);
+        // console.log(res);
     }
 
     //3.退出时清除用户信息
