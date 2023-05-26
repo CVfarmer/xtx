@@ -20,7 +20,10 @@
             <tr v-for="i in cartStore.cartList" :key="i.id">
               <td>
                 <!-- 单选框 -->
-                <el-checkbox/>
+                <!-- ：model-value和change是element ui 定义的 组件文档可查 -->
+                <!-- 因为需要传多个参数，所以change事件需要改成箭头函数 -->
+                <el-checkbox :model-value="i.Selected" @change="(Selected)=>singleCheck(i,Selected)"/>
+
               </td>
               <td>
                 <div class="goods">
@@ -82,6 +85,12 @@
 import { useCartStore } from '@/stores/carStore'
 const cartStore = useCartStore()
 
+//单选回调、
+const singleCheck = (i,Selected)=>{
+// console.log(i,Selected);
+    //因需要知道要修改谁的选中状态，所以模板上的change要把整个对象和selected传过来，找i里面的skuid进行修改 
+    cartStore.singleCheck(i.skuId,Selected)
+}
 </script>
 
 <style scoped lang="scss">

@@ -30,6 +30,13 @@ const delCart = (skuId) => {
    cartList.value.splice(idx,1)
 }
 
+//单选功能
+const singleCheck = (skuId,Selected)=>{
+    //通过skuId找到要修改的那一项然后把他的selected修改为传过来的selected
+    const item = cartList.value.find((item)=> item.skuId === skuId)
+    item.Selected = Selected
+}
+
 //计算购物者总数和总价--计算属性
 //1.总数  所有项的count之和
 const allCount = computed(()=> cartList.value.reduce((a,c)=> a + c.count,0))   //a是每次累加完就会重新交给a，c是每一项需要加的数
@@ -41,7 +48,8 @@ return{
     addCart,
     delCart,
     allCount,
-    allPrice
+    allPrice,
+    singleCheck
 }
 },{
     persist:true
