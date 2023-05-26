@@ -6,7 +6,8 @@
           <thead>
             <tr>
               <th width="120">
-                <el-checkbox />
+                <!-- 全选框 -->
+                <el-checkbox :model-value="cartStore.isAll" @change="allCheck"/>
               </th>
               <th width="400">商品信息</th>
               <th width="220">单价</th>
@@ -90,6 +91,11 @@ const singleCheck = (i,Selected)=>{
 // console.log(i,Selected);
     //因需要知道要修改谁的选中状态，所以模板上的change要把整个对象和selected传过来，找i里面的skuid进行修改 
     cartStore.singleCheck(i.skuId,Selected)
+}
+
+//全选回调
+const allCheck = (Selected)=>{
+    cartStore.allCheck(Selected)
 }
 </script>
 

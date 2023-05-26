@@ -43,13 +43,24 @@ const allCount = computed(()=> cartList.value.reduce((a,c)=> a + c.count,0))   /
 //2.总价 所有项的count*price之和
 const allPrice = computed(()=> cartList.value.reduce((a,c)=> a + c.count * c.price * 1000 /1000 ,0))   //a是每次累加完就会重新交给a，c是每一项需要加的数。计算精度问题
 
+
+//是否全选
+const isAll = computed(()=> cartList.value.every((item)=>item.Selected))
+
+//全选功能
+const allCheck = (Selected)=>{
+    //把cartList中的每一项的Selected都设置为当前的全选状态
+    cartList.value.forEach(item => item.Selected = Selected)
+}
 return{
     cartList,
     addCart,
     delCart,
     allCount,
     allPrice,
-    singleCheck
+    singleCheck,
+    isAll,
+    allCheck
 }
 },{
     persist:true
