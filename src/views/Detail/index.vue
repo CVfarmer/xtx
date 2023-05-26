@@ -78,7 +78,7 @@
               <!-- sku组件 -->
               <XtxSku :goods="goods" @change="skuChange"/>
               <!-- 数据组件 -->
-              <el-input-number v-model="count"  @change="countChange" />
+              <el-input-number v-model="count" min="1"  @change="countChange" />
               <!-- 按钮组件 -->
               <div>
                 <el-button size="large" class="btn" @click="addCart">
@@ -146,7 +146,7 @@ onMounted(() => getGoods())
 //sku规格被操作时
 let skuObj = {}
 const skuChange = (sku) => {
-  console.log(sku);
+  // console.log(sku);
   skuObj = sku
 }
 

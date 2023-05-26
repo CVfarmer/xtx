@@ -37,12 +37,16 @@ const singleCheck = (skuId,Selected)=>{
     item.Selected = Selected
 }
 
-//计算购物者总数和总价--计算属性
+//计算购物总数和总价--头部购物车
 //1.总数  所有项的count之和
 const allCount = computed(()=> cartList.value.reduce((a,c)=> a + c.count,0))   //a是每次累加完就会重新交给a，c是每一项需要加的数
-//2.总价 所有项的count*price之和
+//2.总价 所有项的count*price之和--头部购物车
 const allPrice = computed(()=> cartList.value.reduce((a,c)=> a + c.count * c.price * 1000 /1000 ,0))   //a是每次累加完就会重新交给a，c是每一项需要加的数。计算精度问题
 
+//3.已选择数量--列表购物车
+const SelectedCount = computed(() => cartList.value.filter(item => item.Selected).reduce((a,c)=> a + c.count,0))
+//4.已选择商品价钱合计--列表购物车
+const SelectedPrice = computed(() => cartList.value.filter(item => item.Selected).reduce((a,c)=> a + c.count * c.price * 1000 / 1000,0))
 
 //是否全选
 const isAll = computed(()=> cartList.value.every((item)=>item.Selected))
@@ -60,8 +64,10 @@ return{
     allPrice,
     singleCheck,
     isAll,
-    allCheck
+    allCheck,
+    SelectedCount,
+    SelectedPrice
 }
 },{
-    persist:true
+   persist:true
 })
