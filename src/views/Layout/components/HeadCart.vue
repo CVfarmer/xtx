@@ -5,6 +5,7 @@
     </a>
     <div class="layer">
       <div class="list">
+  
         <div class="item" v-for="i in CartStore.cartList" :key="i">
           <RouterLink to="">
             <img :src="i.picture" alt="" />
@@ -19,13 +20,18 @@
               <p class="count">x{{ i.count }}</p>
             </div>
           </RouterLink>
-          <i class="iconfont icon-close-new" @click="store.delCart(i.skuId)"></i>
+          <!-- 购物车--下面图标有问题，删除键不显示出来
+          <i class="iconfont icon-close-new" @click="CartStore.delCart(i.skuId)"></i>    -->
+        
+          <!-- 这是自己不用组件写的 -->
+          <i @click="CartStore.delCart(i.skuId)">x</i>    
+
         </div>
       </div>
       <div class="foot">
         <div class="total">
-          <p>共 10 件商品</p>
-          <p>&yen; 100.00 </p>
+          <p>共 {{ CartStore.allCount }} 件商品</p>
+          <p>&yen; {{ CartStore.allPrice.toFixed(2) }} </p>
         </div>
         <el-button size="large" type="primary" >去购物车结算</el-button>
       </div>
