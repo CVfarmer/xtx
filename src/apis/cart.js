@@ -33,3 +33,15 @@ export const delCartAPI = (ids)=>{
 
     })
 }
+
+
+//合并购物车
+//此处data将来传入skuId,selected,count,看接口文档
+export const mergeCartAPI = (data)=>{
+   return request({
+    url:'/member/cart/merge',
+    method:'POST',
+    data
+   })
+ 
+}

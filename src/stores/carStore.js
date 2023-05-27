@@ -5,19 +5,25 @@ import { useUserStore } from './use'  //引入用户信息（用户的token）�
 import { insertCartAPI, findNewCartListAPI, delCartAPI } from '@/apis/cart'
 
 
+
 export const useCartStore = defineStore('cart', () => {
     const userStore = useUserStore()
     const isLogin = computed(() => userStore.useInfo.token)  //判断是否登录
     //1.定义state - carList
     const cartList = ref([])
+      //获取最新购物车列表action
+      const upDateNewList = async ()=>{
+        const res = await findNewCartListAPI()     //2.调用获取购物车列表接口(最新的购物车列表)
+        cartList.value = res.result               //3.用接口购物车列表覆盖本地购物车列表
+     }
+
     //2.定义action - addCart
     const addCart = async (goods) => {
         const { skuId, count } = goods  //对goods结构skuId,count
         if (isLogin.value) {
             //登录后的加入购物车逻辑
             await insertCartAPI({ skuId, count })  //此参数从goods来的 ,1.调用加入购物车接口
-            const res = await findNewCartListAPI()    //2.调用获取购物车列表接口(最新的购物车列表)
-            cartList.value = res.result          //3.用接口购物车列表覆盖本地购物车列表
+            upDateNewList()
         } else {
             //非登录后的加入购物车逻辑
             //添加购物车步骤，
@@ -30,12 +36,11 @@ export const useCartStore = defineStore('cart', () => {
             } else {
                 cartList.value.push(goods)
             }
-            console.log(cartList);
+            // console.log(cartList);
         }
     }
 
-
-
+  
 
     //删除购物车（头部购物车）
     const delCart = async (skuId) => {
@@ -43,8 +48,7 @@ export const useCartStore = defineStore('cart', () => {
             //登录下的删除购物车
             //调用接口实现接口购物车中的删除功能
             await delCartAPI([skuId])
-            const res = await findNewCartListAPI()
-            cartList.value = res.result
+            upDateNewList()
         } else {
             //非登录下的删除购物车
             /* 思路： 1.找到要删除的下标值 --splice
@@ -104,7 +108,8 @@ export const useCartStore = defineStore('cart', () => {
         allCheck,
         SelectedCount,
         SelectedPrice,
-        clearCart
+        clearCart,
+        upDateNewList
     }
 }, {
     persist: true

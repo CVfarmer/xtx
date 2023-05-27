@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import {ref} from 'vue'
 import {loginAPI } from '@/apis/use'
 import { useCartStore } from "./carStore";
+import {mergeCartAPI} from '@/apis/cart'
 
 export const useUserStore = defineStore('use',()=>{
     const CartStore = useCartStore()
@@ -12,6 +13,16 @@ export const useUserStore = defineStore('use',()=>{
         const res = await loginAPI({account,password})
         useInfo.value = res.result
         // console.log(res);
+        //合并购物车操作  有bug，不能删除购物车数据
+        await mergeCartAPI(CartStore.cartList.map(item =>{
+            return{
+                //下面三个数据来自cartStore.cartList (本地购物车数据)
+                skuId:item.skuId,
+                selected:item.selected,
+                count:item.count
+            }
+        }))
+        CartStore.upDateNewList()
     }
 
     //3.退出时清除用户信息和清除购物车数据
