@@ -76,7 +76,7 @@ import 'element-plus/theme-chalk/el-message.css'
 //useRouter是调方法，useRoute获取参数
 import {useRouter} from 'vue-router'
 //引入pinia里面的用户数据
-import {useUserStore} from '@/stores/use'
+import { useUserStore } from '@/stores/use'
 const userStore = useUserStore()
 
 
