@@ -25,6 +25,7 @@
 </template>
 
 <script setup>
+//支付结果组件
 import { getOrderAPI } from '@/apis/pay'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
