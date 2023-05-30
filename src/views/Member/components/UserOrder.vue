@@ -78,7 +78,8 @@
           </div>
           <!-- 分页 -->
           <div class="pagination-container">
-            <el-pagination background layout="prev, pager, next" />
+            <!-- :page-size="params.pageSize" 是限制每页条数，通常与pageSize保持一致，所以用params.pageSize -->
+            <el-pagination :total="total" :page-size="params.pageSize" @current-change="pageChange"  background layout="prev, pager, next" />
           </div>
         </div>
       </div>
@@ -104,23 +105,33 @@ const tabTypes = [
 ]
 // 订单列表
 const orderList = ref([])
+const total = ref(0)  //订单总数
 const params = ref({
-	orderState:0,
-  page:1,
-  pageSize:2
+	orderState:0,   //tab栏的参数，才能知道点击的是哪个tab栏
+  page:1,          //当前是第几页
+  pageSize:2      //每页的条数
 })
 const getOrderList = async()=>{
  const res = await getUserOrder(params.value)
  orderList.value = res.result.items
 //  console.log(res);
+ total.value = res.result.counts
 }
 onMounted(()=>getOrderList())
 
 //tab切换 （重新发送请求）
 const tabChange = (type)=>{
-  // console.log(type);
+  console.log(type);
   params.value.orderState = type
   getOrderList()
+}
+
+//页数切换
+const pageChange = (page) =>{
+  // console.log(page);
+  params.value.page = page   //当前页数赋值给 params里面的page
+  getOrderList()
+
 }
 </script>
 
