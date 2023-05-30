@@ -37,6 +37,8 @@
 </template>
 
 <script setup>
+
+//个人中心组件
 import { getLikeListAPI } from '@/apis/use'
 import { useUserStore } from '@/stores/use'
 import { onMounted, ref } from 'vue'
