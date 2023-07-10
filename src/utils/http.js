@@ -28,8 +28,6 @@ httpInstance.interceptors.request.use(config => {
 
 
 
-
-
 //axios响应式拦截器
 httpInstance.interceptors.response.use(res => res.data, e => {
     const userStore = useUserStore()   //通过这个实例对象，能拿到token数据

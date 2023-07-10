@@ -22,7 +22,7 @@ const getBanner = async ()=>{
 
 }
 
-onMounted(()=> getBanner( ))
+onMounted(()=> getBanner())
 </script>
 
 <style lang="scss" scoped>

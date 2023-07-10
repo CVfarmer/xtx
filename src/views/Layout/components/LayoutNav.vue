@@ -3,7 +3,7 @@
     <div class="container">
         <ul>
             <!-- 多模板渲染 区分登录状态和非登录状态 -->
-            <!-- 思路：登录时显示第一块，非登录时电视第二块  是否有token -->
+            <!-- 思路：登录时显示第一块，非登录时显示第二块  是否有token -->
             <template v-if="useStore.useInfo.token">
              <li><a href="javascript:;"><i class=" iconfont icon-denglu"></i>{{ useStore.useInfo.account }}</a></li>
              <li>
@@ -13,7 +13,7 @@
                 </template>
                 </el-popconfirm>
             </li> 
-            <li><a href="javascript:;" >我的订单</a></li>
+            <router-link  to="/member/Order"><li><a href="javascript:;" >我的订单</a></li></router-link>   
             <li><a href="javascript:;">会员中心</a></li>
             </template>
             <template v-else>
